@@ -8,24 +8,24 @@ import {
   getNewsForYearAndMonth,
 } from '@/lib/news';
 
-export default function FilteredNewsPage({ params }) {
+export default async function FilteredNewsPage({ params }) {
   const filter = params.filter;
 
   const selectedYear = filter?.[0];
   const selectedMonth = filter?.[1];
 
   let news;
-  let links = getAvailableNewsYears(); //return list of years
+  let links = await getAvailableNewsYears(); //return list of years
 
   //if we have selected year but not month
   if (selectedYear && !selectedMonth) {
-    news = getNewsForYear(selectedYear);
+    news = await getNewsForYear(selectedYear);
     links = getAvailableNewsMonths(selectedYear); // return list of months related to that selected year
   }
 
   //if we have selected both year and month we will not display the list of links
   if (selectedYear && selectedMonth) {
-    news = getNewsForYearAndMonth(selectedYear, selectedMonth);
+    news = await getNewsForYearAndMonth(selectedYear, selectedMonth);
     links = [];
   }
 
@@ -39,10 +39,11 @@ export default function FilteredNewsPage({ params }) {
   //              ? `/archive/${selectedYear}/${link}`   if you select a year then you will be redirected to  /archive/2024/month  => link=month
   //              : `/archive/${link}`;                  if you did not select a year then you'll be redirected to /archive/year  => link=year
 
+  const availableYears = await getAvailableNewsYears();
   if (
-    (selectedYear && !getAvailableNewsYears().includes(+selectedYear)) ||
+    (selectedYear && !availableYears.includes(selectedYear)) ||
     (selectedMonth &&
-      !getAvailableNewsMonths(selectedYear).includes(+selectedMonth))
+      !getAvailableNewsMonths(selectedYear).includes(selectedMonth))
   ) {
     throw new Error('Invalid filter.');
   }
