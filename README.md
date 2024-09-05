@@ -11,3 +11,8 @@ This application is based on NextJS:
 * Routing & page rendering
 * File name conventions & project structure
 * server components vs client components
+
+# Integrate a seperate server (backend) to our project
+
+ * cd backend
+ * npm install
