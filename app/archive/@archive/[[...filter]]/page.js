@@ -39,6 +39,14 @@ export default function FilteredNewsPage({ params }) {
   //              ? `/archive/${selectedYear}/${link}`   if you select a year then you will be redirected to  /archive/2024/month  => link=month
   //              : `/archive/${link}`;                  if you did not select a year then you'll be redirected to /archive/year  => link=year
 
+  if (
+    (selectedYear && !getAvailableNewsYears().includes(+selectedYear)) ||
+    (selectedMonth &&
+      !getAvailableNewsMonths(selectedYear).includes(+selectedMonth))
+  ) {
+    throw new Error('Invalid filter.');
+  }
+  
   return (
     <>
       <header id="archive-header">
