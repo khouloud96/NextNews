@@ -12,9 +12,9 @@ This application is based on NextJS:
 * File name conventions & project structure
 * server components vs client components
 * 3 approachs of fetching data :
-** Fetching data on client-side (useEffect, useState)
-** Fetching data on server-side (inside the component)
-** Fetching data directly from the source database
+  - Fetching data on client-side (useEffect, useState)
+  - Fetching data on server-side (inside the component)
+  - Fetching data directly from the source database
 
 # Integrate a seperate server (backend) to our project
 
